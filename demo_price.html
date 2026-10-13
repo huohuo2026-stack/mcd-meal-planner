@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>麦当劳点餐比价 · 门店实价</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--line:#e3e6ea;--txt:#1a1a1a;--sub:#6b7280;
+      --red:#d92b2b;--gold:#ffbc0d;--green:#0a8754;--blue:#1a4ed8;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);
+     font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+     padding:28px 20px 60px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto}
+header{text-align:center;margin-bottom:28px}
+h1{font-size:26px;letter-spacing:.5px}
+h1 .m{color:var(--red)}
+.sub{color:var(--sub);font-size:14px;margin-top:6px}
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;
+      padding:10px 18px;font-size:13px}
+.stat b{color:var(--blue);font-size:18px;display:block}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;
+       padding:20px 22px;margin-bottom:20px}
+.scene-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+         padding-bottom:12px;border-bottom:1px dashed var(--line);margin-bottom:14px}
+.badge{background:var(--gold);color:#000;font-weight:700;border-radius:6px;
+       padding:3px 11px;font-size:13px}
+.badge.light{background:#ffe9b0}
+.badge.blue{background:#e0edff;color:#1249b8}
+.scene-h .meta{color:var(--sub);font-size:13px}
+.meal{border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+      margin-bottom:12px;background:#fcfdff}
+.meal-top{display:flex;justify-content:space-between;align-items:baseline;
+          gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.meal-total{font-weight:700;font-size:15px}
+.meal-total .k{color:var(--red)}
+.meal-sub{font-size:12px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #f0f2f5}
+th{color:var(--sub);font-weight:600;font-size:12px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;
+     background:#eef1f5;color:#4b5563}
+.tag.主食{background:#ffe4e0;color:#b3261e}
+.tag.饮品{background:#e0edff;color:#1249b8}
+.tag.小食{background:#e6f7ec;color:#0a7a4b}
+.tag.甜点{background:#fdeaf7;color:#a3238f}
+.tag.套餐{background:#fff3d6;color:#8a5a00}
+.tag.组合{background:#eae4ff;color:#5b3fc4}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+           gap:10px}
+.diff-card{border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+           background:#fcfdff}
+.diff-card .n{font-weight:600;font-size:13px;margin-bottom:6px}
+.diff-card .row{font-size:12px;color:var(--sub);display:flex;
+                justify-content:space-between}
+.diff-card .row b{color:var(--red)}
+footer{text-align:center;color:var(--sub);font-size:12px;margin-top:30px}
+.banner{background:#fff4e5;border:1px solid #ffd8a8;border-radius:8px;
+        padding:10px 14px;font-size:13px;color:#8a5a00;margin-bottom:20px}
+</style></style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>💰 麦当劳<span class="m">点餐比价助手</span></h1>
+    <div class="sub">接入真实门店在售商品，按预算组合、按档位比价</div>
+    <div class="stats"><div class="stat"><b>88</b>在售商品</div><div class="stat"><b>54</b>单品</div><div class="stat"><b>17</b>套餐</div><div class="stat"><b>实时</b>门店价格</div></div>
+  </header>
+  <div id="app"><div class="banner">数据来自真实门店「麦当劳深圳华强北茂业餐厅」的实时菜单，价格为该店当日实际售价。</div></div>
+  <footer>数据源：麦当劳官方 MCP · query-meals + calculate-price ｜ 门店 麦当劳深圳华强北茂业餐厅 (1421180)</footer>
+</div>
+<script>
+const SCENES = [{"budget": 25, "store": "麦当劳深圳华强北茂业餐厅", "storeCode": "1421180", "results": [{"items": [{"name": "火腿扒早安营养卷", "price": 15.5, "role": "主食", "tier": "单品"}, {"name": "小杯鲜萃咖啡", "price": 9.5, "role": "饮品", "tier": "单品"}], "total": 25.0, "count": 2, "remaining": 0.0}, {"items": [{"name": "大脆鸡扒麦满分", "price": 11.0, "role": "主食", "tier": "单品"}, {"name": "麦咖啡™冰奶铁中杯", "price": 13.9, "role": "饮品", "tier": "单品"}], "total": 24.9, "count": 2, "remaining": 0.1}, {"items": [{"name": "原味板烧鸡腿麦满分", "price": 15.0, "role": "主食", "tier": "单品"}, {"name": "小杯鲜萃咖啡", "price": 9.5, "role": "饮品", "tier": "单品"}], "total": 24.5, "count": 2, "remaining": 0.5}]}, {"budget": 35, "store": "麦当劳深圳华强北茂业餐厅", "storeCode": "1421180", "results": [{"items": [{"name": "巧克力味厚松饼猪柳堡", "price": 18.0, "role": "主食", "tier": "单品"}, {"name": "德式图林根香肠", "price": 9.5, "role": "小食", "tier": "单品"}, {"name": "纯悦", "price": 7.5, "role": "饮品", "tier": "单品"}], "total": 35.0, "count": 3, "remaining": 0.0}, {"items": [{"name": "枫糖风味厚松饼猪柳堡", "price": 18.0, "role": "主食", "tier": "单品"}, {"name": "德式图林根香肠", "price": 9.5, "role": "小食", "tier": "单品"}, {"name": "纯悦", "price": 7.5, "role": "饮品", "tier": "单品"}], "total": 35.0, "count": 3, "remaining": 0.0}, {"items": [{"name": "猪柳蛋麦满分", "price": 18.0, "role": "主食", "tier": "单品"}, {"name": "德式图林根香肠", "price": 9.5, "role": "小食", "tier": "单品"}, {"name": "纯悦", "price": 7.5, "role": "饮品", "tier": "单品"}], "total": 35.0, "count": 3, "remaining": 0.0}]}, {"budget": 50, "store": "麦当劳深圳华强北茂业餐厅", "storeCode": "1421180", "results": [{"items": [{"name": "猪柳麦满分", "price": 14.0, "role": "主食", "tier": "单品"}, {"name": "小杯玉米杯", "price": 13.0, "role": "小食", "tier": "单品"}, {"name": "冰燕麦奶铁中杯", "price": 23.0, "role": "饮品", "tier": "单品"}], "total": 50.0, "count": 3, "remaining": 0.0}, {"items": [{"name": "图林根香肠早安营养卷", "price": 16.0, "role": "主食", "tier": "单品"}, {"name": "小杯玉米杯", "price": 13.0, "role": "小食", "tier": "单品"}, {"name": "卡布奇诺中杯", "price": 21.0, "role": "饮品", "tier": "单品"}], "total": 50.0, "count": 3, "remaining": 0.0}, {"items": [{"name": "巧克力味厚松饼猪柳堡", "price": 18.0, "role": "主食", "tier": "单品"}, {"name": "脆薯饼", "price": 8.5, "role": "小食", "tier": "单品"}, {"name": "冰燕麦奶铁中杯", "price": 23.0, "role": "饮品", "tier": "单品"}], "total": 49.5, "count": 3, "remaining": 0.5}]}];
+const TIER = [{"base": "吉士蛋麦满分", "tiers": {"组合": {"name": "吉士蛋麦满分组合", "price": 12.0}, "套餐": {"name": "吉士蛋麦满分套餐", "price": 17.0}, "单品": {"name": "吉士蛋麦满分", "price": 10.0}}, "combo_diff": 2.0, "meal_diff": 7.0}, {"base": "大脆鸡扒麦满分", "tiers": {"套餐": {"name": "大脆鸡扒麦满分套餐", "price": 18.0}, "组合": {"name": "大脆鸡扒麦满分组合", "price": 13.0}, "单品": {"name": "大脆鸡扒麦满分", "price": 11.0}}, "combo_diff": 2.0, "meal_diff": 7.0}, {"base": "火腿扒麦满分", "tiers": {"套餐": {"name": "火腿扒麦满分套餐", "price": 17.0}, "组合": {"name": "火腿扒麦满分组合", "price": 12.0}, "单品": {"name": "火腿扒麦满分", "price": 10.0}}, "combo_diff": 2.0, "meal_diff": 7.0}, {"base": "巧克力味厚松饼猪柳蛋堡", "tiers": {"套餐": {"name": "巧克力味厚松饼猪柳蛋堡套餐", "price": 29.9}, "组合": {"name": "巧克力味厚松饼猪柳蛋堡组合", "price": 25.0}, "单品": {"name": "巧克力味厚松饼猪柳蛋堡", "price": 22.0}}, "combo_diff": 3.0, "meal_diff": 7.9}, {"base": "巧克力味厚松饼猪柳堡", "tiers": {"套餐": {"name": "巧克力味厚松饼猪柳堡套餐", "price": 25.9}, "组合": {"name": "巧克力味厚松饼猪柳堡组合", "price": 21.0}, "单品": {"name": "巧克力味厚松饼猪柳堡", "price": 18.0}}, "combo_diff": 3.0, "meal_diff": 7.9}, {"base": "枫糖风味厚松饼猪柳蛋堡", "tiers": {"套餐": {"name": "枫糖风味厚松饼猪柳蛋堡套餐", "price": 29.9}, "组合": {"name": "枫糖风味厚松饼猪柳蛋堡组合", "price": 25.0}, "单品": {"name": "枫糖风味厚松饼猪柳蛋堡", "price": 22.0}}, "combo_diff": 3.0, "meal_diff": 7.9}, {"base": "枫糖风味厚松饼猪柳堡", "tiers": {"套餐": {"name": "枫糖风味厚松饼猪柳堡套餐", "price": 25.9}, "组合": {"name": "枫糖风味厚松饼猪柳堡组合", "price": 21.0}, "单品": {"name": "枫糖风味厚松饼猪柳堡", "price": 18.0}}, "combo_diff": 3.0, "meal_diff": 7.9}, {"base": "猪柳蛋麦满分", "tiers": {"套餐": {"name": "猪柳蛋麦满分套餐", "price": 26.0}, "组合": {"name": "猪柳蛋麦满分组合", "price": 21.0}, "单品": {"name": "猪柳蛋麦满分", "price": 18.0}}, "combo_diff": 3.0, "meal_diff": 8.0}, {"base": "原味板烧鸡腿麦满分", "tiers": {"组合": {"name": "原味板烧鸡腿麦满分组合", "price": 18.0}, "套餐": {"name": "原味板烧鸡腿麦满分套餐", "price": 23.0}, "单品": {"name": "原味板烧鸡腿麦满分", "price": 15.0}}, "combo_diff": 3.0, "meal_diff": 8.0}, {"base": "火腿扒早安营养卷", "tiers": {"组合": {"name": "火腿扒早安营养卷组合", "price": 18.5}, "套餐": {"name": "火腿扒早安营养卷套餐", "price": 23.5}, "单品": {"name": "火腿扒早安营养卷", "price": 15.5}}, "combo_diff": 3.0, "meal_diff": 8.0}, {"base": "原味板烧鸡腿炒双蛋堡", "tiers": {"组合": {"name": "原味板烧鸡腿炒双蛋堡组合", "price": 21.0}, "套餐": {"name": "原味板烧鸡腿炒双蛋堡套餐", "price": 26.0}, "单品": {"name": "原味板烧鸡腿炒双蛋堡", "price": 18.0}}, "combo_diff": 3.0, "meal_diff": 8.0}, {"base": "双层原味板烧鸡腿麦满分", "tiers": {"套餐": {"name": "双层原味板烧鸡腿麦满分套餐", "price": 27.0}, "单品": {"name": "双层原味板烧鸡腿麦满分", "price": 19.0}}, "meal_diff": 8.0}];
+const app = document.getElementById('app');
+let h = '';
+SCENES.forEach(s => {
+  h += `<div class="scene">
+    <div class="scene-h">
+      <span class="badge">¥${s.budget.toFixed(2)}</span>
+      <span class="badge blue">${s.store}</span>
+      <span class="meta">从门店 ${88} 个在售商品中组合</span>
+    </div>`;
+  s.results.forEach((c,i) => {
+    h += `<div class="meal">
+      <div class="meal-top">
+        <div class="meal-total">方案 ${i+1} ｜ <span class="k">¥${c.total.toFixed(2)}</span></div>
+        <div class="meal-sub">${c.count} 件 ｜ 余 ¥${c.remaining.toFixed(2)}</div>
+      </div>
+      <table><thead><tr><th>商品</th><th>档位</th><th>角色</th>
+      <th style="text-align:right">价格</th></tr></thead><tbody>`;
+    c.items.forEach(it => {
+      h += `<tr><td>${it.name}</td>
+        <td><span class="tag ${it.tier}">${it.tier}</span></td>
+        <td><span class="tag ${it.role}">${it.role}</span></td>
+        <td class="num">¥${it.price.toFixed(2)}</td></tr>`;
+    });
+    h += `</tbody></table></div>`;
+  });
+  h += `</div>`;
+});
+h += `<div class="scene" style="margin-top:8px">
+  <div class="scene-h"><span class="badge blue">档位差价分析</span>
+  <span class="meta">同一主食：单点 → 组合 → 套餐，加多少钱多拿多少东西</span></div>
+  <div class="diff-grid">`;
+TIER.forEach(t => {
+  h += `<div class="diff-card">
+    <div class="n">${t.base}</div>
+    ${t.tiers['单品'] ? `<div class="row"><span>单点</span><b>¥${t.tiers['单品'].price.toFixed(2)}</b></div>` : ''}
+    ${t.tiers['组合'] ? `<div class="row"><span>组合 ${t.combo_diff>0?'(+¥'+t.combo_diff.toFixed(1)+')':''}</span><b>¥${t.tiers['组合'].price.toFixed(2)}</b></div>` : ''}
+    ${t.tiers['套餐'] ? `<div class="row"><span>套餐 ${t.meal_diff>0?'(+¥'+t.meal_diff.toFixed(1)+')':''}</span><b>¥${t.tiers['套餐'].price.toFixed(2)}</b></div>` : ''}
+  </div>`;
+});
+h += `</div></div>`;
+app.innerHTML = h;
+</script>
+</body>
+</html>

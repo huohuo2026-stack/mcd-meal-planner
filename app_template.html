@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>麦当劳套餐助手 · 交互版</title>
+<style>
+:root{
+  --bg:#f4f5f7; --card:#fff; --line:#e5e7eb; --txt:#111827; --sub:#6b7280;
+  --red:#d92b2b; --gold:#ffbc0d; --blue:#1a4ed8; --green:#0a8754;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);
+     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;
+     padding:24px 16px 60px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto}
+
+/* ---- 头部 ---- */
+header{text-align:center;margin-bottom:22px}
+h1{font-size:24px;font-weight:700;letter-spacing:.3px}
+h1 .m{color:var(--red)}
+.sub{color:var(--sub);font-size:13px;margin-top:6px}
+
+/* ---- 模式切换 ---- */
+.tabs{display:flex;gap:6px;justify-content:center;margin:18px 0 22px;
+      background:#e9ebef;padding:4px;border-radius:10px;width:fit-content;margin-left:auto;margin-right:auto}
+.tab{padding:8px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;
+     border:none;background:transparent;color:var(--sub);transition:all .18s}
+.tab.active{background:#fff;color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+
+/* ---- 控制面板 ---- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;
+       padding:20px 22px;margin-bottom:20px;box-shadow:var(--shadow)}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:140px}
+.field label{font-size:12px;font-weight:600;color:var(--sub)}
+.field input,.field select{padding:9px 12px;border:1px solid var(--line);border-radius:8px;
+  font-size:14px;font-family:inherit;background:#fafbfc;transition:border .15s;width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue);background:#fff}
+
+/* 预算快捷按钮 */
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chip{padding:5px 13px;border:1px solid var(--line);background:#fafbfc;border-radius:20px;
+      font-size:12px;cursor:pointer;transition:all .15s;color:var(--sub)}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* 目标选择 */
+.goals{display:flex;gap:8px;flex-wrap:wrap}
+.goal{padding:7px 16px;border:1px solid var(--line);background:#fafbfc;border-radius:8px;
+      font-size:13px;cursor:pointer;transition:all .15s;font-weight:500}
+.goal:hover{border-color:var(--blue)}
+.goal.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* 运行按钮 */
+.run{width:100%;padding:13px;background:var(--red);color:#fff;border:none;border-radius:10px;
+     font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;margin-top:4px;
+     letter-spacing:.5px}
+.run:hover{background:#b81f1f;transform:translateY(-1px);
+           box-shadow:0 4px 14px rgba(217,43,43,.3)}
+.run:active{transform:translateY(0)}
+
+/* ---- 结果区 ---- */
+#result{margin-top:4px}
+.summary-bar{background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);
+  border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:16px;
+  display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-size:13px}
+.summary-bar b{color:var(--red)}
+.kv{display:flex;gap:6px;align-items:baseline}
+.kv span{color:var(--sub)}
+
+.plan{background:var(--card);border:1px solid var(--line);border-radius:12px;
+      padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow);
+      transition:transform .15s,border-color .15s}
+.plan:hover{transform:translateY(-2px);border-color:#c7d2fe}
+.plan-head{display:flex;justify-content:space-between;align-items:center;
+           flex-wrap:wrap;gap:8px;margin-bottom:10px;
+           padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.plan-title{font-weight:700;font-size:15px}
+.plan-title .hl{color:var(--red);font-size:17px}
+.score{font-size:11px;background:#eef2ff;color:#3730a3;padding:2px 9px;
+       border-radius:20px;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--sub);font-weight:600;font-size:11px;
+   padding:5px 6px;border-bottom:1px solid var(--line);text-transform:uppercase;
+   letter-spacing:.4px}
+td{padding:7px 6px;border-bottom:1px solid #f3f4f6}
+tr:last-child td{border-bottom:none}
+td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;
+     font-weight:600;letter-spacing:.2px}
+.t-主食{background:#fee2e2;color:#b91c1c}
+.t-饮品{background:#dbeafe;color:#1d4ed8}
+.t-小食{background:#dcfce7;color:#15803d}
+.t-甜点{background:#fae8ff;color:#a21caf}
+.t-早餐{background:#fef3c7;color:#92400e}
+.t-其他{background:#f1f5f9;color:#475569}
+.t-套餐{background:#fef3c7;color:#92400e}
+.t-组合{background:#ede9fe;color:#6d28d9}
+.t-单品{background:#e0f2fe;color:#0369a1}
+.nutri-bar{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;
+           color:var(--sub);margin-top:8px;padding-top:8px;border-top:1px solid #f3f4f6}
+.nutri-bar b{color:var(--txt)}
+
+/* 档位差价 */
+.diffs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.diff{border:1px solid var(--line);border-radius:9px;padding:11px 13px;background:#fcfdff}
+.diff .dn{font-weight:600;font-size:13px;margin-bottom:7px;
+          white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.diff .dr{display:flex;justify-content:space-between;font-size:12px;
+          color:var(--sub);padding:1px 0}
+.diff .dr b{color:var(--red)}
+.empty{text-align:center;padding:40px;color:var(--sub);font-size:14px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;
+      padding:11px 15px;font-size:13px;color:#92400e;margin-bottom:14px}
+.hint{font-size:12px;color:var(--sub);margin-top:8px;line-height:1.6}
+
+/* ---- 导出工具栏 ---- */
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+         margin:0 0 14px;padding:11px 16px;background:#fff;
+         border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+.tb-label{font-size:13px;font-weight:600;color:var(--sub)}
+.tb-btn{padding:7px 16px;border:1px solid var(--blue);background:#fff;
+        color:var(--blue);border-radius:8px;font-size:13px;font-weight:600;
+        cursor:pointer;transition:all .15s;font-family:inherit}
+.tb-btn:hover{background:var(--blue);color:#fff}
+.tb-btn:disabled{opacity:.5;cursor:wait}
+.tb-msg{font-size:12px;color:var(--green);font-weight:600;margin-left:4px}
+footer{text-align:center;color:var(--sub);font-size:11px;margin-top:32px;opacity:.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🍔 麦当劳<span class="m">套餐助手</span></h1>
+    <div class="sub">输入你的预算和目标，实时生成最优套餐组合</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-mode="nutrition">🥗 营养配餐</button>
+    <button class="tab" data-mode="price">💰 门店比价</button>
+  </div>
+
+  <!-- ============ 营养版面板 ============ -->
+  <div class="panel" id="panel-nutrition">
+    <div class="row">
+      <div class="field">
+        <label>热量预算（大卡）</label>
+        <input type="number" id="kcal" value="500" min="100" max="1500" step="50">
+        <div class="quick">
+          <span class="chip" data-k="300">300</span>
+          <span class="chip on" data-k="500">500</span>
+          <span class="chip" data-k="600">600</span>
+          <span class="chip" data-k="800">800</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>营养目标</label>
+        <div class="goals">
+          <div class="goal" data-g="均衡">均衡</div>
+          <div class="goal on" data-g="减脂">减脂</div>
+          <div class="goal" data-g="增肌">增肌</div>
+          <div class="goal" data-g="轻食">轻食</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+      <div class="field">
+        <label>附加条件</label>
+        <div class="goals">
+          <div class="goal on" data-o="drink">含饮品</div>
+          <div class="goal" data-o="dessert">允许甜点</div>
+        </div>
+      </div>
+    </div>
+    <button class="run" onclick="runNutrition()">生成套餐方案</button>
+    <div class="hint">💡 营养版完全离线运行，数据内嵌，无需联网。</div>
+  </div>
+
+  <!-- ============ 比价版面板 ============ -->
+  <div class="panel" id="panel-price" style="display:none">
+    <div class="row">
+      <div class="field">
+        <label>门店</label>
+        <select id="store"></select>
+      </div>
+      <div class="field">
+        <label>价格预算（元）</label>
+        <input type="number" id="rmb" value="40" min="10" max="200" step="5">
+        <div class="quick">
+          <span class="chip" data-r="25">25</span>
+          <span class="chip" data-r="35">35</span>
+          <span class="chip on" data-r="40">40</span>
+          <span class="chip" data-r="60">60</span>
+        </div>
+      </div>
+    </div>
+    <button class="run" onclick="runPrice()">生成比价方案</button>
+    <div class="hint">💡 比价版内嵌真实门店价格（快照），展示档位差价分析。</div>
+  </div>
+
+  <div class="toolbar" id="toolbar" style="display:none">
+    <span class="tb-label">分享当前方案：</span>
+    <button class="tb-btn" onclick="exportImage(this)">🖼 导出图片</button>
+    <button class="tb-btn" onclick="copyText()">📋 复制文本</button>
+    <span class="tb-msg" id="tb-msg"></span>
+  </div>
+
+  <div id="result">
+    <div class="empty">👆 设置参数后，点击上方按钮生成方案</div>
+  </div>
+
+  <footer>数据源：麦当劳官方 MCP ｜ 营养库 <span id="f-n"></span> 项 ／ 门店价 <span id="f-p"></span> 项</footer>
+</div>
+
+<script>
+// ==================== 数据（由构建脚本注入） ====================
+const NUTRI = __NUTRI_DATA__;      // [{n,k,p,f,c,s,g}] 名字/热量/蛋白/脂肪/碳水/钠/分类
+const STORES = __STORE_DATA__;     // {storeCode: {name, rows:{名:价}}}
+
+// ==================== 营养版算法（与 planner.py 等价） ====================
+// 权重说明：目标项必须足以主导排序，否则不同目标产出相同方案（历史缺陷）。
+// fat_cap 为脂肪供能比硬上限，用于减脂/轻食的强约束。
+const PROFILES = {
+  '均衡': {pw:1.0, fp:1.2, cw:0.6, tol:0.12, fatCap:null},
+  '减脂': {pw:2.2, fp:3.0, cw:0.3, tol:0.10, fatCap:0.32},
+  '增肌': {pw:3.5, fp:0.4, cw:1.2, tol:0.15, fatCap:null},
+  '轻食': {pw:1.6, fp:2.4, cw:0.4, tol:0.08, fatCap:0.30},
+};
+const MAIN_KW = ["麦满分","汉堡","堡","卷","饭","面","三明治","帕尼尼","麦香鸡","麦香鱼","巨无霸","披萨","托盘","牛气","果然多肉","薯鱼","双翅","蜜汁快乐","支撑"];
+const MAIN_EX = ["香肠","脆汁鸡","趣鸡球","鸡翅","V翅","沙拉","薯条"];
+
+function groupItems() {
+  const mains=[], sides=[], drinks=[], desserts=[];
+  NUTRI.forEach(it => {
+    if (it.k <= 0) { if (it.g==='饮品') drinks.push(it); return; }
+    if (it.g === '饮品') drinks.push(it);
+    else if (it.g === '甜点') desserts.push(it);
+    else if (it.g === '小食') sides.push(it);
+    else {
+      const isMain = MAIN_KW.some(k => it.n.includes(k)) && !MAIN_EX.some(e => it.n.includes(e));
+      (isMain ? mains : sides).push(it);
+    }
+  });
+  return {mains, sides, drinks, desserts};
+}
+
+function scoreCombo(combo, budget, prof) {
+  let k=0,p=0,f=0,c=0,na=0;
+  combo.forEach(x => { k+=x.k; p+=x.p; f+=x.f; c+=x.c; na+=x.s; });
+  const rel = Math.abs(k-budget)/Math.max(budget,1);
+  const s_kcal = Math.max(0, 1 - rel/Math.max(prof.tol,0.01));
+  const pDen = p/Math.max(k/100,1);
+  const s_protein = Math.min(pDen/8, 1);
+  const fatRatio = (f*9)/Math.max(k,1);
+  const s_fat = Math.max(0, 1 - Math.max(0,fatRatio-0.35)/0.35);
+  const s_sodium = Math.max(0, 1 - Math.max(0,na-1500)/1500);
+  const roles = new Set(combo.map(x=>x.g));
+  let struct = 0;
+  if (roles.has('主食')||roles.has('早餐')) struct += .4;
+  if (roles.has('小食')) struct += .3;
+  if (roles.has('饮品')) struct += .3;
+  let total = s_kcal*3 + s_protein*prof.pw*2 + s_fat*prof.fp*1.5
+            + s_sodium*.5 + struct*1 + prof.cw*.3;
+  // 脂肪硬上限：减脂/轻食需真正压制脂肪，超限重罚
+  if (prof.fatCap !== null && prof.fatCap !== undefined && fatRatio > prof.fatCap) {
+    total -= (fatRatio - prof.fatCap) * 25;
+  }
+  return {total, k, p, f, c, na, s_kcal, s_protein, s_fat, struct,
+          fat_ratio: fatRatio};
+}
+
+function recommendNutrition(budget, profile, wantDrink, wantDessert, topN) {
+  const {mains, sides, drinks, desserts} = groupItems();
+  const prof = PROFILES[profile] || PROFILES['均衡'];
+  const hi = budget, lo = budget*0.55;
+  const M = mains.filter(m => m.k <= hi);
+  const S = sides, D = wantDrink ? drinks : [], DE = wantDessert ? desserts : [];
+
+  const combos = [];
+  // 组合枚举（与 Python 版一致：主食1 + 小食0-2 + 饮品0-1 + 甜点0-1）
+  const sideOpts = [[]]; S.forEach(s=>sideOpts.push([s]));
+  for (let i=0;i<S.length;i++) for (let j=i+1;j<S.length;j++) sideOpts.push([S[i],S[j]]);
+  const drinkOpts = [[]]; D.forEach(d=>drinkOpts.push([d]));
+  const desOpts = [[]]; DE.forEach(d=>desOpts.push([d]));
+
+  for (const m of M) {
+    for (const so of sideOpts) {
+      const k1 = m.k + so.reduce((a,x)=>a+x.k,0);
+      if (k1 > hi) continue;
+      for (const dr of drinkOpts) {
+        const k2 = k1 + dr.reduce((a,x)=>a+x.k,0);
+        if (k2 > hi) continue;
+        for (const de of desOpts) {
+          const k3 = k2 + de.reduce((a,x)=>a+x.k,0);
+          if (k3 > hi || k3 < lo) continue;
+          combos.push([m,...so,...dr,...de]);
+        }
+      }
+    }
+  }
+
+  // 采样（控制计算量）
+  let pool = combos;
+  if (pool.length > 4000) pool = pool.slice(0, 4000);
+
+  const scored = pool.map(cmb => ({cmb, sc: scoreCombo(cmb, budget, prof)}))
+                     .sort((a,b) => b.sc.total - a.sc.total);
+
+  const out=[], seen=new Set(), usedMains=new Set();
+  for (const {cmb, sc} of scored) {
+    const key = cmb.map(x=>x.n).sort().join('|');
+    if (seen.has(key)) continue;
+    const mn = cmb.filter(x=>x.g==='主食'||x.g==='早餐').map(x=>x.n).sort().join('|');
+    if (usedMains.has(mn)) continue;
+    seen.add(key); usedMains.add(mn);
+    out.push({items:cmb, s:sc});
+    if (out.length >= topN) break;
+  }
+  // 兜底：凑不满则放宽
+  if (out.length < topN) {
+    for (const {cmb, sc} of scored) {
+      const key = cmb.map(x=>x.n).sort().join('|');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({items:cmb, s:sc});
+      if (out.length >= topN) break;
+    }
+  }
+
+  // 降级：预算装不下主食
+  let mode = 'full';
+  if (out.length === 0) {
+    mode = 'light';
+    const pool2 = [...S, ...D, ...DE].filter(x => x.k>0 && x.k<=budget).sort((a,b)=>a.k-b.k);
+    const lc = [];
+    pool2.forEach(x => lc.push([x]));
+    for (let i=0;i<pool2.length;i++) for (let j=i+1;j<pool2.length;j++) {
+      if (pool2[i].k+pool2[j].k<=budget) lc.push([pool2[i],pool2[j]]); else break;
+    }
+    const ls = lc.map(cmb=>{
+      const sc = scoreCombo(cmb, budget, prof);
+      sc.struct = Math.max(sc.struct, 0.6);
+      return {cmb, sc};
+    }).sort((a,b)=>b.sc.total-a.sc.total);
+    out.length = 0;
+    ls.slice(0, topN).forEach(({cmb,sc}) => out.push({items:cmb, s:sc}));
+  }
+  return {budget, profile, mode, count: out.length, results: out};
+}
+
+// ==================== 比价版算法 ====================
+const DRINK_KW=["可乐","雪碧","美式","拿铁","奶铁","卡布","摩卡","牛奶","豆浆","红茶","柠红茶","苹果汁","橙橙","柠柠","怡泉","纯悦","咖啡","鲜萃","浓缩","燕麦奶","雪冰","黑巧","阿芙佳朵"];
+const DESSERT_KW=["冰淇淋","圆筒","新地","麦旋风","派","阿芙佳朵"];
+const SIDE_KW=["薯条","薯饼","油条","玉米杯","香肠","麦乐鸡","鸡翅","脆汁鸡","趣鸡球","沙拉","苹果片"];
+const PMAIN_KW=["麦满分","堡","卷","麦香鸡","麦香鱼","巨无霸","三明治","帕尼尼","早安营养卷","厚松饼","板烧"];
+
+function tierOf(n){ if(n.endsWith('三件套')||n.endsWith('二件套')||n.endsWith('套餐'))return '套餐';
+  if(n.endsWith('组合'))return '组合'; return '单品'; }
+function roleOf(n){
+  if(DESSERT_KW.some(k=>n.includes(k)))return '甜点';
+  if(DRINK_KW.some(k=>n.includes(k)))return '饮品';
+  if(PMAIN_KW.some(k=>n.includes(k)))return '主食';
+  if(SIDE_KW.some(k=>n.includes(k)))return '小食';
+  if(n.includes('套'))return '主食';
+  return '其他';
+}
+function tierCompare(items){
+  const groups={};
+  items.forEach(it=>{
+    let base=it.n;
+    for(const sfx of ['三件套','二件套','套餐','组合']){ if(base.endsWith(sfx)){base=base.slice(0,-sfx.length);break;} }
+    base=base.replace('麦咖啡™','').trim();
+    (groups[base]=groups[base]||[]).push(it);
+  });
+  const out=[];
+  for(const [base,lst] of Object.entries(groups)){
+    const t={}; lst.forEach(x=>t[x.tier]=x);
+    if(Object.keys(t).length<2) continue;
+    const rec={base, tiers:{}};
+    for(const [k,v] of Object.entries(t)) rec.tiers[k]={name:v.n,price:v.price};
+    if(t['单品']&&t['组合']) rec.combo_diff=+(t['组合'].price-t['单品'].price).toFixed(2);
+    if(t['单品']&&t['套餐']) rec.meal_diff=+(t['套餐'].price-t['单品'].price).toFixed(2);
+    out.push(rec);
+  }
+  return out.sort((a,b)=>(a.meal_diff??99)-(b.meal_diff??99));
+}
+
+function runPrice() {
+  const code = document.getElementById('store').value;
+  const budget = +document.getElementById('rmb').value;
+  const st = STORES[code];
+  if (!st) { document.getElementById('result').innerHTML = '<div class="empty">门店数据缺失</div>'; return; }
+
+  const items = Object.entries(st.rows).map(([n,r]) => ({n, price:r.price, tier:tierOf(n), role:roleOf(n)}));
+  const mains=items.filter(x=>x.role==='主食'&&x.tier==='单品'&&x.price<=budget);
+  const sides=items.filter(x=>x.role==='小食'&&x.tier==='单品');
+  const drinks=items.filter(x=>x.role==='饮品'&&x.tier==='单品');
+
+  const combos=[];
+  for(const m of mains){
+    for(const so of [[],...sides.map(s=>[s])]){
+      for(const dr of [[],...drinks.map(d=>[d])]){
+        const cmb=[m,...so,...dr];
+        const tot=cmb.reduce((a,x)=>a+x.price,0);
+        if(tot<=budget) combos.push({cmb,tot});
+      }
+    }
+  }
+  combos.sort((a,b)=> b.tot-a.tot || b.cmb.length-a.cmb.length);
+
+  const out=[], seen=new Set(), usedMains=new Set();
+  for(const {cmb,tot} of combos){
+    const key=cmb.map(x=>x.n).sort().join('|');
+    if(seen.has(key))continue;
+    const mn=cmb.filter(x=>x.role==='主食').map(x=>x.n).sort().join('|');
+    if(usedMains.has(mn))continue;
+    seen.add(key); usedMains.add(mn);
+    out.push({items:cmb,total:+tot.toFixed(2),remaining:+(budget-tot).toFixed(2)});
+    if(out.length>=3)break;
+  }
+
+  let h = `<div class="summary-bar">
+    <div class="kv"><span>门店</span><b>${st.name}</b></div>
+    <div class="kv"><span>在售商品</span><b>${items.length}</b></div>
+    <div class="kv"><span>预算</span><b>¥${budget.toFixed(2)}</b></div>
+  </div>`;
+  out.forEach((c,i)=>{
+    h += `<div class="plan">
+      <div class="plan-head">
+        <div class="plan-title">方案 ${i+1} ｜ <span class="hl">¥${c.total.toFixed(2)}</span></div>
+        <div class="score">余 ¥${c.remaining.toFixed(2)} · ${c.items.length} 件</div>
+      </div>
+      <table><thead><tr><th>商品</th><th>档位</th><th>角色</th>
+      <th style="text-align:right">价格</th></tr></thead><tbody>`;
+    c.items.forEach(it=>{
+      h+=`<tr><td>${it.n}</td>
+        <td><span class="tag t-${it.tier}">${it.tier}</span></td>
+        <td><span class="tag t-${it.role}">${it.role}</span></td>
+        <td class="num">¥${it.price.toFixed(2)}</td></tr>`;
+    });
+    h+=`</tbody></table></div>`;
+  });
+
+  const tc = tierCompare(items).slice(0,9);
+  if(tc.length){
+    h+=`<div class="plan"><div class="plan-head">
+      <div class="plan-title">📊 档位差价分析</div>
+      <div class="score">单点 → 组合 → 套餐</div></div><div class="diffs">`;
+    tc.forEach(t=>{
+      h+=`<div class="diff"><div class="dn">${t.base}</div>
+        ${t.tiers['单品']?`<div class="dr"><span>单点</span><b>¥${t.tiers['单品'].price.toFixed(2)}</b></div>`:''}
+        ${t.tiers['组合']?`<div class="dr"><span>组合${t.combo_diff>0?` (+¥${t.combo_diff.toFixed(1)})`:''}</span><b>¥${t.tiers['组合'].price.toFixed(2)}</b></div>`:''}
+        ${t.tiers['套餐']?`<div class="dr"><span>套餐${t.meal_diff>0?` (+¥${t.meal_diff.toFixed(1)})`:''}</span><b>¥${t.tiers['套餐'].price.toFixed(2)}</b></div>`:''}
+      </div>`;
+    });
+    h+=`</div></div>`;
+  }
+  document.getElementById('result').innerHTML = h;
+
+  STATE = {mode:'price', payload:{store:st.name, budget, plans:out, diffs:tc}};
+  showToolbar();
+}
+
+// ==================== 当前状态记录（供导出用） ====================
+let STATE = {mode:null, payload:null};
+
+function showToolbar() {
+  document.getElementById('toolbar').style.display = 'flex';
+  document.getElementById('tb-msg').textContent = '';
+}
+
+function hideToolbar() {
+  document.getElementById('toolbar').style.display = 'none';
+}
+
+// ==================== 导出：生成文本 ====================
+function buildText() {
+  if (!STATE.payload) return '';
+  const L = [];
+  const d = new Date();
+  const stamp = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+
+  if (STATE.mode === 'nutrition') {
+    const p = STATE.payload;
+    L.push('🍔 麦当劳营养配餐方案');
+    L.push(`预算 ${p.budget} kcal ｜ 目标【${p.profile}】｜ ${stamp}`);
+    L.push('─────────────────────');
+    p.results.forEach((res, i) => {
+      const s = res.s;
+      L.push(`\n【方案 ${i+1}】${s.k} kcal ｜ 蛋白 ${s.p}g ｜ 脂肪 ${s.f}g ｜ 碳水 ${s.c}g ｜ 钠 ${s.na}mg`);
+      res.items.forEach(it => {
+        L.push(`  · ${it.n}（${it.g}）${it.k} kcal / 蛋白${it.p}g 脂肪${it.f}g`);
+      });
+    });
+    L.push('\n─────────────────────');
+    L.push('营养数据：麦当劳官方 MCP · list-nutrition-foods');
+  } else {
+    const p = STATE.payload;
+    L.push('💰 麦当劳门店点餐比价方案');
+    L.push(`门店：${p.store} ｜ 预算 ¥${p.budget.toFixed(2)} ｜ ${stamp}`);
+    L.push('─────────────────────');
+    p.plans.forEach((c, i) => {
+      L.push(`\n【方案 ${i+1}】合计 ¥${c.total.toFixed(2)} ｜ 余 ¥${c.remaining.toFixed(2)} ｜ ${c.items.length} 件`);
+      c.items.forEach(it => {
+        L.push(`  · ${it.n}（${it.tier}）¥${it.price.toFixed(2)}`);
+      });
+    });
+    if (p.diffs && p.diffs.length) {
+      L.push('\n📊 档位差价分析（单点 → 组合 → 套餐）');
+      p.diffs.slice(0, 8).forEach(t => {
+        const parts = [];
+        if (t.tiers['单品']) parts.push(`单点 ¥${t.tiers['单品'].price.toFixed(2)}`);
+        if (t.tiers['组合']) parts.push(`组合 ¥${t.tiers['组合'].price.toFixed(2)}${t.combo_diff>0?`(+¥${t.combo_diff.toFixed(1)})`:''}`);
+        if (t.tiers['套餐']) parts.push(`套餐 ¥${t.tiers['套餐'].price.toFixed(2)}${t.meal_diff>0?`(+¥${t.meal_diff.toFixed(1)})`:''}`);
+        L.push(`  · ${t.base}：${parts.join(' → ')}`);
+      });
+    }
+    L.push('\n─────────────────────');
+    L.push('价格数据：麦当劳官方 MCP · query-meals + calculate-price（门店实时价）');
+  }
+  L.push('由「麦当劳套餐助手」生成');
+  return L.join('\n');
+}
+
+// ==================== 导出：复制文本 ====================
+function copyText() {
+  const txt = buildText();
+  if (!txt) return;
+  const done = () => {
+    const m = document.getElementById('tb-msg');
+    m.textContent = '✓ 已复制到剪贴板';
+    setTimeout(() => m.textContent = '', 2200);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(txt).then(done).catch(() => fallbackCopy(txt, done));
+  } else {
+    fallbackCopy(txt, done);
+  }
+}
+
+function fallbackCopy(txt, done) {
+  // 兜底：file:// 协议下 clipboard API 可能不可用
+  const ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    done();
+  } catch (e) {
+    // 最终兜底：弹窗让用户手动复制
+    window.prompt('自动复制失败，请手动复制以下内容：', txt);
+  }
+  document.body.removeChild(ta);
+}
+
+// ==================== 导出：生成图片（Canvas 绘制） ====================
+function exportImage(btn) {
+  if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
+
+  const SCALE = 2;              // 高清输出
+  const W = 720, PAD = 32;
+  const FONT = '-apple-system,"Segoe UI","Microsoft YaHei",sans-serif';
+
+  // 先量测所需高度（用离屏画布试算）
+  const meas = document.createElement('canvas').getContext('2d');
+  meas.font = `14px ${FONT}`;
+  const lines = [];   // {text, size, weight, color, gap}
+
+  const push = (text, size, weight, color, gap) =>
+    lines.push({text, size: size || 14, weight: weight || 'normal',
+                color: color || '#111827', gap: gap === undefined ? 6 : gap});
+
+  if (STATE.mode === 'nutrition') {
+    const p = STATE.payload;
+    push('🍔 麦当劳营养配餐方案', 22, 'bold', '#111827', 6);
+    push(`预算 ${p.budget} kcal  ·  目标【${p.profile}】`, 13, 'normal', '#6b7280', 18);
+    p.results.forEach((res, i) => {
+      const s = res.s;
+      push(`方案 ${i+1}`, 16, 'bold', '#111827', 4);
+      push(`${s.k} kcal  ｜  蛋白 ${s.p}g · 脂肪 ${s.f}g · 碳水 ${s.c}g · 钠 ${s.na}mg`,
+           13, 'normal', '#d92b2b', 10);
+      res.items.forEach(it => {
+        push(`${it.n}   ${it.k} kcal`, 13, 'normal', '#374151', 20);
+      });
+      push('', 8, 'normal', '#fff', 14);
+    });
+  } else {
+    const p = STATE.payload;
+    push('💰 麦当劳门店点餐比价方案', 22, 'bold', '#111827', 6);
+    push(p.store, 13, 'normal', '#6b7280', 4);
+    push(`预算 ¥${p.budget.toFixed(2)}`, 13, 'normal', '#6b7280', 18);
+    p.plans.forEach((c, i) => {
+      push(`方案 ${i+1}`, 16, 'bold', '#111827', 4);
+      push(`合计 ¥${c.total.toFixed(2)}  ｜  余 ¥${c.remaining.toFixed(2)}  ｜  ${c.items.length} 件`,
+           13, 'normal', '#d92b2b', 10);
+      c.items.forEach(it => {
+        push(`${it.n}（${it.tier}）   ¥${it.price.toFixed(2)}`, 13, 'normal', '#374151', 20);
+      });
+      push('', 8, 'normal', '#fff', 14);
+    });
+    if (p.diffs && p.diffs.length) {
+      push('📊 档位差价分析', 15, 'bold', '#111827', 4);
+      p.diffs.slice(0, 6).forEach(t => {
+        const seg = [];
+        if (t.tiers['单品']) seg.push(`单点 ¥${t.tiers['单品'].price.toFixed(2)}`);
+        if (t.tiers['组合']) seg.push(`组合 ¥${t.tiers['组合'].price.toFixed(2)}`);
+        if (t.tiers['套餐']) seg.push(`套餐 ¥${t.tiers['套餐'].price.toFixed(2)}`);
+        push(`${t.base.slice(0,14)}  ${seg.join(' → ')}`, 12, 'normal', '#4b5563', 18);
+      });
+      push('', 8, 'normal', '#fff', 10);
+    }
+  }
+  push('数据源：麦当劳官方 MCP  ｜  由「麦当劳套餐助手」生成',
+       11, 'normal', '#9ca3af', 0);
+
+  // 计算总高（底部额外留 10px，避免最后一行 descender 被裁切）
+  let H = PAD * 2 + 10;
+  lines.forEach(l => {
+    meas.font = `${l.weight} ${l.size * SCALE}px ${FONT}`;
+    H += l.size * 1.5 + l.gap;
+  });
+  H = Math.ceil(H);
+
+  // 正式开始绘制
+  const cv = document.createElement('canvas');
+  cv.width = W * SCALE;
+  cv.height = H * SCALE;
+  const ctx = cv.getContext('2d');
+  ctx.scale(SCALE, SCALE);
+
+  // 背景
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+  // 顶部色条
+  const grad = ctx.createLinearGradient(0, 0, W, 0);
+  grad.addColorStop(0, '#d92b2b');
+  grad.addColorStop(1, '#ffbc0d');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, 5);
+
+  let y = PAD;
+  lines.forEach(l => {
+    y += l.size * 1.5;
+    ctx.font = `${l.weight} ${l.size}px ${FONT}`;
+    ctx.fillStyle = l.color;
+    ctx.textBaseline = 'alphabetic';
+    // 长文本自动截断（超出宽度加省略号）
+    let txt = l.text;
+    const maxW = W - PAD * 2;
+    if (ctx.measureText(txt).width > maxW) {
+      while (txt.length > 1 && ctx.measureText(txt + '…').width > maxW) {
+        txt = txt.slice(0, -1);
+      }
+      txt += '…';
+    }
+    ctx.fillText(txt, PAD, y);
+    y += l.gap;
+  });
+
+  // 导出下载
+  cv.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const d = new Date();
+    const stamp = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
+    a.download = `麦当劳方案_${STATE.mode === 'nutrition' ? '营养' : '比价'}_${stamp}.png`;
+    a.href = url;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+    const m = document.getElementById('tb-msg');
+    m.textContent = '✓ 图片已下载';
+    setTimeout(() => m.textContent = '', 2200);
+    if (btn) { btn.disabled = false; btn.textContent = '🖼 导出图片'; }
+  }, 'image/png');
+}
+
+// ==================== 营养版渲染 ====================
+function runNutrition() {
+  const budget = +document.getElementById('kcal').value;
+  const profile = document.querySelector('#panel-nutrition .goal[data-g].on').dataset.g;
+  const wantDrink = document.querySelector('#panel-nutrition .goal[data-o="drink"]').classList.contains('on');
+  const wantDessert = document.querySelector('#panel-nutrition .goal[data-o="dessert"]').classList.contains('on');
+
+  const r = recommendNutrition(budget, profile, wantDrink, wantDessert, 3);
+
+  let h = `<div class="summary-bar">
+    <div class="kv"><span>预算</span><b>${budget} kcal</b></div>
+    <div class="kv"><span>目标</span><b>${r.profile}</b></div>
+    <div class="kv"><span>模式</span><b>${r.mode==='light'?'轻食降级':'常规'}</b></div>
+  </div>`;
+  if(r.mode==='light') h+=`<div class="warn">⚠ 预算低于最轻主食（246 kcal），已降级为轻食单品推荐</div>`;
+
+  r.results.forEach((res,i)=>{
+    const s=res.s;
+    h+=`<div class="plan">
+      <div class="plan-head">
+        <div class="plan-title">方案 ${i+1} ｜ <span class="hl">${s.k} kcal</span></div>
+        <div class="score">评分 ${(Math.min(s.total*1.2,10)).toFixed(1)} / 10</div>
+      </div>
+      <table><thead><tr><th>餐品</th><th>类型</th>
+      <th style="text-align:right">热量</th><th style="text-align:right">蛋白</th>
+      <th style="text-align:right">脂肪</th><th style="text-align:right">碳水</th>
+      </tr></thead><tbody>`;
+    res.items.forEach(it=>{
+      h+=`<tr><td>${it.n}</td>
+        <td><span class="tag t-${it.g}">${it.g}</span></td>
+        <td class="num">${it.k}</td><td class="num">${it.p}</td>
+        <td class="num">${it.f}</td><td class="num">${it.c}</td></tr>`;
+    });
+    h+=`</tbody></table>
+      <div class="nutri-bar">
+        <span>合计 <b>${s.k} kcal</b></span>
+        <span>蛋白 <b>${s.p}g</b></span><span>脂肪 <b>${s.f}g</b></span>
+        <span>碳水 <b>${s.c}g</b></span><span>钠 <b>${s.na}mg</b></span>
+      </div></div>`;
+  });
+  document.getElementById('result').innerHTML = h;
+
+  STATE = {mode:'nutrition', payload:r};
+  showToolbar();
+}
+
+// ==================== 交互绑定 ====================
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const m = t.dataset.mode;
+    document.getElementById('panel-nutrition').style.display = m==='nutrition'?'':'none';
+    document.getElementById('panel-price').style.display = m==='price'?'':'none';
+    document.getElementById('result').innerHTML = '<div class="empty">👆 设置参数后，点击上方按钮生成方案</div>';
+    STATE = {mode:null, payload:null};
+    hideToolbar();
+  };
+});
+// 预算快捷
+document.querySelectorAll('.chip[data-k]').forEach(c=>{
+  c.onclick = () => {
+    document.querySelectorAll('.chip[data-k]').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+    document.getElementById('kcal').value = c.dataset.k;
+  };
+});
+document.querySelectorAll('.chip[data-r]').forEach(c=>{
+  c.onclick = () => {
+    document.querySelectorAll('.chip[data-r]').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+    document.getElementById('rmb').value = c.dataset.r;
+  };
+});
+// 目标单选
+document.querySelectorAll('#panel-nutrition .goal[data-g]').forEach(g=>{
+  g.onclick = () => {
+    document.querySelectorAll('#panel-nutrition .goal[data-g]').forEach(x=>x.classList.remove('on'));
+    g.classList.add('on');
+  };
+});
+// 条件多选
+document.querySelectorAll('#panel-nutrition .goal[data-o]').forEach(g=>{
+  g.onclick = () => g.classList.toggle('on');
+});
+
+// 门店下拉
+const sel = document.getElementById('store');
+Object.entries(STORES).forEach(([code,st])=>{
+  const o=document.createElement('option');
+  o.value=code; o.textContent=`${st.name} (${code})`;
+  sel.appendChild(o);
+});
+
+// 页脚统计
+document.getElementById('f-n').textContent = NUTRI.length;
+document.getElementById('f-p').textContent = Object.values(STORES).reduce((a,s)=>a+Object.keys(s.rows).length,0);
+
+// 首屏自动跑一次
+runNutrition();
+</script>
+</body>
+</html>

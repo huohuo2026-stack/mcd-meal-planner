@@ -1,0 +1,801 @@
+{
+  "1421180": {
+    "store_code": "1421180",
+    "store_name": "麦当劳深圳华强北茂业餐厅",
+    "fetched_at": 1791854800.8388462,
+    "rows": {
+      "厚松饼猪柳蛋堡三件套": {
+        "code": "9900016524",
+        "price_fen": 2990,
+        "price": 29.9,
+        "original_fen": 2990,
+        "original": 29.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳蛋麦满分套餐": {
+        "code": "9900013411",
+        "price_fen": 2600,
+        "price": 26.0,
+        "original_fen": 2600,
+        "original": 26.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "一早现磨 超值二件套": {
+        "code": "9900013221",
+        "price_fen": 1490,
+        "price": 14.9,
+        "original_fen": 1490,
+        "original": 14.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "麦咖啡™冰奶铁中杯": {
+        "code": "507409",
+        "price_fen": 1390,
+        "price": 13.9,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "脆香油条组合": {
+        "code": "9900012729",
+        "price_fen": 1100,
+        "price": 11.0,
+        "original_fen": 1100,
+        "original": 11.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "吉士蛋麦满分组合": {
+        "code": "9900008094",
+        "price_fen": 1200,
+        "price": 12.0,
+        "original_fen": 1200,
+        "original": 12.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿麦满分组合": {
+        "code": "9900003493",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "大脆鸡扒麦满分套餐": {
+        "code": "9900003451",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒早安营养卷组合": {
+        "code": "9900003428",
+        "price_fen": 1850,
+        "price": 18.5,
+        "original_fen": 1850,
+        "original": 18.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿炒双蛋堡组合": {
+        "code": "9900003424",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳蛋堡套餐": {
+        "code": "9900016178",
+        "price_fen": 2990,
+        "price": 29.9,
+        "original_fen": 2990,
+        "original": 29.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳堡套餐": {
+        "code": "9900016132",
+        "price_fen": 2590,
+        "price": 25.9,
+        "original_fen": 2590,
+        "original": 25.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳蛋堡套餐": {
+        "code": "9900016171",
+        "price_fen": 2990,
+        "price": 29.9,
+        "original_fen": 2990,
+        "original": 29.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳堡套餐": {
+        "code": "9900016176",
+        "price_fen": 2590,
+        "price": 25.9,
+        "original_fen": 2590,
+        "original": 25.9,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳蛋堡组合": {
+        "code": "9900016145",
+        "price_fen": 2500,
+        "price": 25.0,
+        "original_fen": 2500,
+        "original": 25.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳堡组合": {
+        "code": "9900016146",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳蛋堡组合": {
+        "code": "9900016143",
+        "price_fen": 2500,
+        "price": 25.0,
+        "original_fen": 2500,
+        "original": 25.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳堡组合": {
+        "code": "9900016144",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳蛋堡": {
+        "code": "521981",
+        "price_fen": 2200,
+        "price": 22.0,
+        "original_fen": 2200,
+        "original": 22.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "巧克力味厚松饼猪柳堡": {
+        "code": "521982",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳蛋堡": {
+        "code": "521989",
+        "price_fen": 2200,
+        "price": 22.0,
+        "original_fen": 2200,
+        "original": 22.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "枫糖风味厚松饼猪柳堡": {
+        "code": "521990",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿麦满分套餐": {
+        "code": "9900003457",
+        "price_fen": 2300,
+        "price": 23.0,
+        "original_fen": 2300,
+        "original": 23.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "双层原味板烧鸡腿麦满分套餐": {
+        "code": "9900003459",
+        "price_fen": 2700,
+        "price": 27.0,
+        "original_fen": 2700,
+        "original": 27.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒麦满分套餐": {
+        "code": "9900003449",
+        "price_fen": 1700,
+        "price": 17.0,
+        "original_fen": 1700,
+        "original": 17.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "吉士蛋麦满分套餐": {
+        "code": "9900003453",
+        "price_fen": 1700,
+        "price": 17.0,
+        "original_fen": 1700,
+        "original": 17.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳麦满分套餐": {
+        "code": "9900003454",
+        "price_fen": 2200,
+        "price": 22.0,
+        "original_fen": 2200,
+        "original": 22.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳蛋麦满分组合": {
+        "code": "9900003491",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "大脆鸡扒麦满分组合": {
+        "code": "9900003455",
+        "price_fen": 1300,
+        "price": 13.0,
+        "original_fen": 1300,
+        "original": 13.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "双层板烧鸡腿麦满分组合": {
+        "code": "9900003504",
+        "price_fen": 2200,
+        "price": 22.0,
+        "original_fen": 2200,
+        "original": 22.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒麦满分组合": {
+        "code": "9900003456",
+        "price_fen": 1200,
+        "price": 12.0,
+        "original_fen": 1200,
+        "original": 12.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳麦满分组合": {
+        "code": "9900003423",
+        "price_fen": 1700,
+        "price": 17.0,
+        "original_fen": 1700,
+        "original": 17.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳蛋麦满分": {
+        "code": "5022",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿麦满分": {
+        "code": "6800",
+        "price_fen": 1500,
+        "price": 15.0,
+        "original_fen": 1500,
+        "original": 15.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "大脆鸡扒麦满分": {
+        "code": "5889",
+        "price_fen": 1100,
+        "price": 11.0,
+        "original_fen": 1100,
+        "original": 11.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "双层原味板烧鸡腿麦满分": {
+        "code": "4989",
+        "price_fen": 1900,
+        "price": 19.0,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒麦满分": {
+        "code": "1254",
+        "price_fen": 1000,
+        "price": 10.0,
+        "original_fen": 1000,
+        "original": 10.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "吉士蛋麦满分": {
+        "code": "5888",
+        "price_fen": 1000,
+        "price": 10.0,
+        "original_fen": 1000,
+        "original": 10.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳麦满分": {
+        "code": "5024",
+        "price_fen": 1400,
+        "price": 14.0,
+        "original_fen": 1400,
+        "original": 14.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "冰浓浓黑巧中杯": {
+        "code": "515946",
+        "price_fen": 1390,
+        "price": 13.9,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "冰浓浓燕麦黑巧中杯": {
+        "code": "515955",
+        "price_fen": 1590,
+        "price": 15.9,
+        "original_fen": 2300,
+        "original": 23.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "麦咖啡™冰美式中杯": {
+        "code": "507411",
+        "price_fen": 1190,
+        "price": 11.9,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "冰燕麦奶铁中杯": {
+        "code": "510479",
+        "price_fen": 2300,
+        "price": 23.0,
+        "original_fen": 2300,
+        "original": 23.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "卡布奇诺中杯": {
+        "code": "507387",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "咖啡阿芙佳朵": {
+        "code": "514851",
+        "price_fen": 750,
+        "price": 7.5,
+        "original_fen": 1500,
+        "original": 15.0,
+        "discount_fen": 750,
+        "discount": 7.5
+      },
+      "小杯鲜萃咖啡": {
+        "code": "520689",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "浓浓黑巧雪冰中杯": {
+        "code": "515949",
+        "price_fen": 2300,
+        "price": 23.0,
+        "original_fen": 2300,
+        "original": 23.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "热牛奶中杯": {
+        "code": "507394",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 950,
+        "discount": 9.5
+      },
+      "热燕麦奶中杯": {
+        "code": "510488",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿炒双蛋堡套餐": {
+        "code": "9900003466",
+        "price_fen": 2600,
+        "price": 26.0,
+        "original_fen": 2600,
+        "original": 26.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳炒双蛋堡套餐": {
+        "code": "9900003465",
+        "price_fen": 2600,
+        "price": 26.0,
+        "original_fen": 2600,
+        "original": 26.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳炒双蛋堡组合": {
+        "code": "9900003425",
+        "price_fen": 2100,
+        "price": 21.0,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "原味板烧鸡腿炒双蛋堡": {
+        "code": "514700",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "猪柳炒双蛋堡": {
+        "code": "502773",
+        "price_fen": 1800,
+        "price": 18.0,
+        "original_fen": 1800,
+        "original": 18.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒早安营养卷套餐": {
+        "code": "9900003468",
+        "price_fen": 2350,
+        "price": 23.5,
+        "original_fen": 2350,
+        "original": 23.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "图林根香肠早安营养卷套餐": {
+        "code": "9900003469",
+        "price_fen": 2400,
+        "price": 24.0,
+        "original_fen": 2400,
+        "original": 24.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "图林根香肠早安营养卷组合": {
+        "code": "9900003429",
+        "price_fen": 1900,
+        "price": 19.0,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "火腿扒早安营养卷": {
+        "code": "513112",
+        "price_fen": 1550,
+        "price": 15.5,
+        "original_fen": 1550,
+        "original": 15.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "图林根香肠早安营养卷": {
+        "code": "513113",
+        "price_fen": 1600,
+        "price": 16.0,
+        "original_fen": 1600,
+        "original": 16.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "蓝莓爆爆珠麦旋风": {
+        "code": "521950",
+        "price_fen": 1650,
+        "price": 16.5,
+        "original_fen": 1650,
+        "original": 16.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "灰焰圆筒": {
+        "code": "521951",
+        "price_fen": 500,
+        "price": 5.0,
+        "original_fen": 500,
+        "original": 5.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "泷愿成真麦旋风——大米风味": {
+        "code": "521917",
+        "price_fen": 1650,
+        "price": 16.5,
+        "original_fen": 1650,
+        "original": 16.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "奶香大米派": {
+        "code": "521922",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "脆薯饼": {
+        "code": "4825",
+        "price_fen": 850,
+        "price": 8.5,
+        "original_fen": 850,
+        "original": 8.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "德式图林根香肠": {
+        "code": "505235",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "脆香油条": {
+        "code": "2631",
+        "price_fen": 850,
+        "price": 8.5,
+        "original_fen": 850,
+        "original": 8.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "小杯玉米杯": {
+        "code": "4437",
+        "price_fen": 1300,
+        "price": 13.0,
+        "original_fen": 1300,
+        "original": 13.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "脆香油条豆浆组合": {
+        "code": "9900003728",
+        "price_fen": 1700,
+        "price": 17.0,
+        "original_fen": 1700,
+        "original": 17.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "派": {
+        "code": "9900008752",
+        "price_fen": 850,
+        "price": 8.5,
+        "original_fen": 850,
+        "original": 8.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "柠檬脆脆麦旋风": {
+        "code": "521836",
+        "price_fen": 1650,
+        "price": 16.5,
+        "original_fen": 1650,
+        "original": 16.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "泷盐星星麦旋风": {
+        "code": "521750",
+        "price_fen": 1650,
+        "price": 16.5,
+        "original_fen": 1650,
+        "original": 16.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "经典麦旋风": {
+        "code": "9900008754",
+        "price_fen": 1550,
+        "price": 15.5,
+        "original_fen": 1550,
+        "original": 15.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "圆筒冰淇淋": {
+        "code": "515837",
+        "price_fen": 500,
+        "price": 5.0,
+        "original_fen": 500,
+        "original": 5.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "新地": {
+        "code": "9900008745",
+        "price_fen": 1200,
+        "price": 12.0,
+        "original_fen": 1200,
+        "original": 12.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "【美汁源】“多汁柠柠”": {
+        "code": "521817",
+        "price_fen": 1200,
+        "price": 12.0,
+        "original_fen": 1200,
+        "original": 12.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "优品豆浆小杯": {
+        "code": "1088",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "麦咖啡™热奶铁中杯": {
+        "code": "507328",
+        "price_fen": 1390,
+        "price": 13.9,
+        "original_fen": 2100,
+        "original": 21.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "麦咖啡™热美式中杯": {
+        "code": "507368",
+        "price_fen": 1190,
+        "price": 11.9,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 710,
+        "discount": 7.1
+      },
+      "锡兰红茶": {
+        "code": "3505",
+        "price_fen": 1150,
+        "price": 11.5,
+        "original_fen": 1150,
+        "original": 11.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "【美汁源】“黄金橙橙”": {
+        "code": "2430",
+        "price_fen": 1300,
+        "price": 13.0,
+        "original_fen": 1300,
+        "original": 13.0,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "100%苹果汁": {
+        "code": "6362",
+        "price_fen": 1150,
+        "price": 11.5,
+        "original_fen": 1150,
+        "original": 11.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "纯牛奶": {
+        "code": "3755",
+        "price_fen": 1050,
+        "price": 10.5,
+        "original_fen": 1050,
+        "original": 10.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "冰牛奶中杯": {
+        "code": "510041",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 1900,
+        "original": 19.0,
+        "discount_fen": 950,
+        "discount": 9.5
+      },
+      "阳光柠檬红茶小杯": {
+        "code": "515280",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "中杯怡泉+C": {
+        "code": "515520",
+        "price_fen": 1150,
+        "price": 11.5,
+        "original_fen": 1150,
+        "original": 11.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "雪碧小杯": {
+        "code": "3010",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "可乐": {
+        "code": "9900008751",
+        "price_fen": 950,
+        "price": 9.5,
+        "original_fen": 950,
+        "original": 9.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      },
+      "纯悦": {
+        "code": "3757",
+        "price_fen": 750,
+        "price": 7.5,
+        "original_fen": 750,
+        "original": 7.5,
+        "discount_fen": 0,
+        "discount": 0.0
+      }
+    }
+  }
+}
